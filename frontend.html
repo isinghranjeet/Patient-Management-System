@@ -518,6 +518,8 @@
             z-index: 999;
             padding: 1.5rem;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
 
         body.dark-mode .notification-panel {
@@ -547,6 +549,8 @@
             margin-bottom: 1rem;
             background: var(--light);
             border-left: 4px solid var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
         }
 
         body.dark-mode .notification-item {
@@ -559,6 +563,10 @@
 
         .notification-item.danger {
             border-left-color: var(--danger);
+        }
+
+        .notification-item:hover {
+            transform: translateX(-5px);
         }
 
         /* Modal */
@@ -671,129 +679,737 @@
             display: block;
             animation: fadeIn 0.5s ease;
         }
+
+        /* Print Styles */
+        @media print {
+            .sidebar, .header-actions, .section-header button, .notification-panel {
+                display: none !important;
+            }
+            
+            .section {
+                box-shadow: none;
+                break-inside: avoid;
+            }
+            
+            .content {
+                padding: 0;
+            }
+            
+            .main-container {
+                display: block;
+            }
+        }
+
+        /* Calendar Styles */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 1rem;
+        }
+
+        .calendar-header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-day {
+            padding: 0.5rem;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .calendar-day:hover {
+            background: rgba(44, 107, 175, 0.1);
+        }
+
+        .calendar-day.current {
+            background: var(--primary);
+            color: white;
+        }
+
+        .calendar-day.has-appointment {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid var(--success);
+        }
+
+        /* Login Form */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .login-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        body.dark-mode .login-form {
+            background: #16213e;
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-logo i {
+            font-size: 3rem;
+            color: var(--primary);
+        }
+
+        /* Emergency Alert */
+        .emergency-alert {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--danger);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            transform: translateY(100px);
+        }
+
+        .emergency-alert.show {
+            transform: translateY(0);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .toast {
+            background: white;
+            color: var(--dark);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            transform: translateX(100%);
+        }
+
+        body.dark-mode .toast {
+            background: #16213e;
+            color: #e6e6e6;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast.error {
+            border-left: 4px solid var(--danger);
+        }
+
+        .toast.warning {
+            border-left: 4px solid var(--warning);
+        }
+
+        /* Data Export Options */
+        .export-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .export-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--light);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .export-btn:hover {
+            background: var(--light-gray);
+        }
+
+        /* Patient Timeline */
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -0.5rem;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        body.dark-mode .timeline-content {
+            background: #1a1a2e;
+        }
     </style>
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo-container">
-            <div class="logo">
+    <!-- Login Screen (initially hidden) -->
+    <div id="loginScreen" class="login-container" style="display: none;">
+        <div class="login-form">
+            <div class="login-logo">
                 <i class="fas fa-hospital"></i>
+                <h2>Ranjeet Health Care</h2>
             </div>
-            <h1>Ranjeet Health Care</h1>
-        </div>
-        
-        <div class="header-actions">
-            <button class="theme-toggle" id="themeToggle">
-                <i class="fas fa-moon"></i>
-            </button>
-            <button class="notification-btn" id="notificationBtn">
-                <i class="fas fa-bell"></i>
-                <span class="notification-count">3</span>
-            </button>
-            <div class="user-profile">
-                <div class="user-avatar">
-                    <i class="fas fa-user-md"></i>
-                </div>
-                <span class="user-name">Dr. Ranjeet</span>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" class="form-control" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Enter your password">
+            </div>
+            <div class="form-group">
+                <button id="loginBtn" class="btn btn-primary" style="width: 100%;">Login</button>
+            </div>
+            <div class="form-group" style="text-align: center;">
+                <a href="#" id="forgotPassword">Forgot Password?</a>
             </div>
         </div>
-    </header>
+    </div>
 
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <ul class="sidebar-menu">
-                <li><a href="#dashboard" class="active nav-link" data-section="dashboard"><i class="fas fa-home"></i> <span class="menu-text">Dashboard</span></a></li>
-                <li><a href="#hospitalInfo" class="nav-link" data-section="hospitalInfo"><i class="fas fa-info-circle"></i> <span class="menu-text">Hospital Info</span></a></li>
-                <li><a href="#addPatient" class="nav-link" data-section="addPatient"><i class="fas fa-user-plus"></i> <span class="menu-text">Add Patient</span></a></li>
-                <li><a href="#ongoingPatients" class="nav-link" data-section="ongoingPatients"><i class="fas fa-procedures"></i> <span class="menu-text">Ongoing Patients</span></a></li>
-                <li><a href="#treatedPatients" class="nav-link" data-section="treatedPatients"><i class="fas fa-user-check"></i> <span class="menu-text">Treated Patients</span></a></li>
-                <li><a href="#healthMonitoring" class="nav-link" data-section="healthMonitoring"><i class="fas fa-heartbeat"></i> <span class="menu-text">Health Monitoring</span></a></li>
-                <li><a href="#treatmentHistory" class="nav-link" data-section="treatmentHistory"><i class="fas fa-history"></i> <span class="menu-text">Treatment History</span></a></li>
-                <li><a href="#medicationTracker" class="nav-link" data-section="medicationTracker"><i class="fas fa-pills"></i> <span class="menu-text">Medication Tracker</span></a></li>
-            </ul>
-        </aside>
-
-        <!-- Content Area -->
-        <main class="content">
-            <!-- Dashboard Section -->
-            <section id="dashboard" class="section active">
-                <div class="section-header">
-                    <h2 class="section-title">Patient Dashboard</h2>
-                    <div class="date-filter">
-                        <select class="form-control" id="dateFilter">
-                            <option>Last 7 days</option>
-                            <option>Last 30 days</option>
-                            <option>Last 90 days</option>
-                            <option>Custom Range</option>
-                        </select>
-                    </div>
+    <!-- Main Application -->
+    <div id="appContainer">
+        <!-- Header -->
+        <header>
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-hospital"></i>
                 </div>
-
-                <!-- Stats Grid -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon patients">
-                            <i class="fas fa-user-injured"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="totalPatients">0</h3>
-                            <p>Total Patients</p>
-                        </div>
+                <h1>Ranjeet Health Care</h1>
+            </div>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="notification-btn" id="notificationBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count">3</span>
+                </button>
+                <div class="user-profile" id="userProfile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-md"></i>
                     </div>
-
-                    <div class="stat-card">
-                        <div class="stat-icon ongoing">
-                            <i class="fas fa-stethoscope"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="ongoingTreatments">0</h3>
-                            <p>Ongoing Treatments</p>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-icon treated">
-                            <i class="fas fa-user-check"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="treatedPatients">0</h3>
-                            <p>Treated Patients</p>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-icon medication">
-                            <i class="fas fa-pills"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="activeMedications">0</h3>
-                            <p>Active Medications</p>
-                        </div>
-                    </div>
+                    <span class="user-name">Dr. Ranjeet</span>
                 </div>
+            </div>
+        </header>
 
-                <!-- Charts -->
-                <div class="charts-container">
-                    <div class="chart-card">
-                        <h3>Health Metrics Overview</h3>
-                        <canvas id="healthMetricsChart" height="300"></canvas>
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="#dashboard" class="active nav-link" data-section="dashboard"><i class="fas fa-home"></i> <span class="menu-text">Dashboard</span></a></li>
+                    <li><a href="#hospitalInfo" class="nav-link" data-section="hospitalInfo"><i class="fas fa-info-circle"></i> <span class="menu-text">Hospital Info</span></a></li>
+                    <li><a href="#addPatient" class="nav-link" data-section="addPatient"><i class="fas fa-user-plus"></i> <span class="menu-text">Add Patient</span></a></li>
+                    <li><a href="#ongoingPatients" class="nav-link" data-section="ongoingPatients"><i class="fas fa-procedures"></i> <span class="menu-text">Ongoing Patients</span></a></li>
+                    <li><a href="#treatedPatients" class="nav-link" data-section="treatedPatients"><i class="fas fa-user-check"></i> <span class="menu-text">Treated Patients</span></a></li>
+                    <li><a href="#healthMonitoring" class="nav-link" data-section="healthMonitoring"><i class="fas fa-heartbeat"></i> <span class="menu-text">Health Monitoring</span></a></li>
+                    <li><a href="#treatmentHistory" class="nav-link" data-section="treatmentHistory"><i class="fas fa-history"></i> <span class="menu-text">Treatment History</span></a></li>
+                    <li><a href="#medicationTracker" class="nav-link" data-section="medicationTracker"><i class="fas fa-pills"></i> <span class="menu-text">Medication Tracker</span></a></li>
+                    <li><a href="#appointmentScheduler" class="nav-link" data-section="appointmentScheduler"><i class="fas fa-calendar-check"></i> <span class="menu-text">Appointments</span></a></li>
+                    <li><a href="#billing" class="nav-link" data-section="billing"><i class="fas fa-money-bill-wave"></i> <span class="menu-text">Billing</span></a></li>
+                    <li><a href="#reports" class="nav-link" data-section="reports"><i class="fas fa-chart-bar"></i> <span class="menu-text">Reports</span></a></li>
+                    <li><a href="#staffManagement" class="nav-link" data-section="staffManagement"><i class="fas fa-users"></i> <span class="menu-text">Staff</span></a></li>
+                    <li><a href="#settings" class="nav-link" data-section="settings"><i class="fas fa-cog"></i> <span class="menu-text">Settings</span></a></li>
+                    <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> <span class="menu-text">Logout</span></a></li>
+                </ul>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="section active">
+                    <div class="section-header">
+                        <h2 class="section-title">Patient Dashboard</h2>
+                        <div class="date-filter">
+                            <select class="form-control" id="dateFilter">
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                                <option>Last 90 days</option>
+                                <option>Custom Range</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon patients">
+                                <i class="fas fa-user-injured"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalPatients">0</h3>
+                                <p>Total Patients</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon ongoing">
+                                <i class="fas fa-stethoscope"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="ongoingTreatments">0</h3>
+                                <p>Ongoing Treatments</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon treated">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="treatedPatients">0</h3>
+                                <p>Treated Patients</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon medication">
+                                <i class="fas fa-pills"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="activeMedications">0</h3>
+                                <p>Active Medications</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts -->
+                    <div class="charts-container">
+                        <div class="chart-card">
+                            <h3>Health Metrics Overview</h3>
+                            <canvas id="healthMetricsChart" height="300"></canvas>
+                        </div>
+                        
+                        <div class="chart-card">
+                            <h3>Patient Distribution</h3>
+                            <canvas id="patientDistributionChart" height="300"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activities -->
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">Recent Activities</h2>
+                            <button class="btn btn-primary btn-sm">View All</button>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Activity</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentActivities">
+                                    <!-- Activities will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Appointments -->
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">Upcoming Appointments</h2>
+                            <button class="btn btn-primary btn-sm">View All</button>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Date & Time</th>
+                                        <th>Purpose</th>
+                                        <th>Doctor</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="upcomingAppointments">
+                                    <!-- Appointments will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Hospital Info Section -->
+                <section id="hospitalInfo" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Hospital Information</h2>
                     </div>
                     
-                    <div class="chart-card">
-                        <h3>Patient Distribution</h3>
-                        <canvas id="patientDistributionChart" height="300"></canvas>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="hospitalName">Hospital Name</label>
+                            <input type="text" id="hospitalName" class="form-control" value="Ranjeet Health Care">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hospitalAddress">Address</label>
+                            <input type="text" id="hospitalAddress" class="form-control" value="New Delhi, Nirman Vihar, Near by Shiv-Mandir">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hospitalPhone">Phone Number</label>
+                            <input type="tel" id="hospitalPhone" class="form-control" value="+91 9315058665">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hospitalEmail">Email Address</label>
+                            <input type="email" id="hospitalEmail" class="form-control" value="info@ranjeethealthcare.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hospitalHours">Operating Hours</label>
+                            <input type="text" id="hospitalHours" class="form-control" value="24/7">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hospitalServices">Services Offered</label>
+                            <textarea id="hospitalServices" class="form-control" rows="4">General Medicine, Cardiology, Orthopedics, Pediatrics, Neurology, Emergency Care</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hospitalDescription">Description</label>
+                            <textarea id="hospitalDescription" class="form-control" rows="4">Ranjeet Health Care is a state-of-the-art medical facility dedicated to providing comprehensive healthcare services with compassion and excellence.</textarea>
+                        </div>
+                        
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <button class="btn btn-primary">Save Information</button>
+                        </div>
                     </div>
-                </div>
+                </section>
 
-                <!-- Recent Activities -->
-                <div class="section">
+                <!-- Add Patient Section -->
+                <section id="addPatient" class="section">
                     <div class="section-header">
-                        <h2 class="section-title">Recent Activities</h2>
-                        <button class="btn btn-primary btn-sm">View All</button>
+                        <h2 class="section-title">Add New Patient</h2>
+                    </div>
+                    
+                    <form id="patientForm" class="form-grid">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="age">Age *</label>
+                            <input type="number" id="age" class="form-control" required min="0" max="120">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="gender">Gender *</label>
+                            <select id="gender" class="form-control" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" class="form-control" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="bloodGroup">Blood Group</label>
+                            <select id="bloodGroup" class="form-control">
+                                <option value="">Select Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="emergencyContact">Emergency Contact</label>
+                            <input type="text" id="emergencyContact" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="medicalHistory">Medical History</label>
+                            <textarea id="medicalHistory" class="form-control" rows="3" placeholder="Previous illnesses, surgeries, etc."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="allergies">Allergies</label>
+                            <textarea id="allergies" class="form-control" rows="2" placeholder="Known allergies"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="patientPhoto">Patient Photo</label>
+                            <input type="file" id="patientPhoto" class="form-control" accept="image/*">
+                        </div>
+                        
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <button type="submit" class="btn btn-primary">Add Patient</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Ongoing Patients Section -->
+                <section id="ongoingPatients" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Ongoing Patients</h2>
+                        <button class="btn btn-primary" id="refreshOngoing">Refresh</button>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Condition</th>
+                                    <th>Admission Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ongoingPatientsList">
+                                <!-- Ongoing patients will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Treated Patients Section -->
+                <section id="treatedPatients" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Treated Patients</h2>
+                        <div class="export-options">
+                            <div class="export-btn" onclick="exportData('treatedPatients', 'csv')">
+                                <i class="fas fa-file-csv"></i> CSV
+                            </div>
+                            <div class="export-btn" onclick="exportData('treatedPatients', 'pdf')">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Condition</th>
+                                    <th>Treatment</th>
+                                    <th>Discharge Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="treatedPatientsList">
+                                <!-- Treated patients will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Health Monitoring Section -->
+                <section id="healthMonitoring" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Health Monitoring</h2>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="healthPatient">Select Patient *</label>
+                            <select id="healthPatient" class="form-control" required>
+                                <option value="">Select Patient</option>
+                                <!-- Patients will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="healthDate">Date *</label>
+                            <input type="date" id="healthDate" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="weight">Weight (kg)</label>
+                            <input type="number" id="weight" class="form-control" step="0.1" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="height">Height (cm)</label>
+                            <input type="number" id="height" class="form-control" step="0.1" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="bloodPressure">Blood Pressure</label>
+                            <input type="text" id="bloodPressure" class="form-control" placeholder="e.g., 120/80">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="heartRate">Heart Rate (bpm)</label>
+                            <input type="number" id="heartRate" class="form-control" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="temperature">Temperature (°F)</label>
+                            <input type="number" id="temperature" class="form-control" step="0.1" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="oxygenSaturation">Oxygen Saturation (%)</label>
+                            <input type="number" id="oxygenSaturation" class="form-control" min="0" max="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="glucose">Glucose Level (mg/dL)</label>
+                            <input type="number" id="glucose" class="form-control" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notes">Notes</label>
+                            <textarea id="notes" class="form-control" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <button class="btn btn-primary" id="addHealthData">Add Health Data</button>
+                        </div>
+                    </div>
+                    
+                    <div class="section-header" style="margin-top: 2rem;">
+                        <h2 class="section-title">Health Data History</h2>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Patient</th>
+                                    <th>Blood Pressure</th>
+                                    <th>Heart Rate</th>
+                                    <th>Temperature</th>
+                                    <th>Oxygen</th>
+                                    <th>Glucose</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="healthDataList">
+                                <!-- Health data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Treatment History Section -->
+                <section id="treatmentHistory" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Treatment History</h2>
+                        <button class="btn btn-primary" id="addTreatmentBtn">Add Treatment</button>
                     </div>
                     
                     <div class="table-responsive">
@@ -801,493 +1417,653 @@
                             <thead>
                                 <tr>
                                     <th>Patient</th>
-                                    <th>Activity</th>
-                                    <th>Time</th>
+                                    <th>Treatment</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Doctor</th>
                                     <th>Status</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="recentActivities">
-                                <!-- Activities will be populated by JavaScript -->
+                            <tbody id="treatmentHistoryList">
+                                <!-- Treatment history will be populated by JavaScript -->
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- Hospital Information Section -->
-            <section id="hospitalInfo" class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Hospital Information</h2>
-                </div>
-                
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label><i class="fas fa-hospital"></i> Hospital Name</label>
-                        <p>Ranjeet Health Care</p>
+                <!-- Medication Tracker Section -->
+                <section id="medicationTracker" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Medication Tracker</h2>
+                        <button class="btn btn-primary" id="addMedicationBtn">Add Medication</button>
                     </div>
                     
-                    <div class="form-group">
-                        <label><i class="fas fa-map-marker-alt"></i> Location</label>
-                        <p>New Delhi, Nirman Vihar, Near by Shiv-Mandir</p>
+                    <div class="form-grid" id="medicationForm" style="display: none;">
+                        <div class="form-group">
+                            <label for="medPatient">Select Patient *</label>
+                            <select id="medPatient" class="form-control" required>
+                                <option value="">Select Patient</option>
+                                <!-- Patients will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="medicationName">Medication Name *</label>
+                            <input type="text" id="medicationName" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dosage">Dosage *</label>
+                            <input type="text" id="dosage" class="form-control" required placeholder="e.g., 500mg">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="frequency">Frequency *</label>
+                            <select id="frequency" class="form-control" required>
+                                <option value="">Select Frequency</option>
+                                <option value="Once daily">Once daily</option>
+                                <option value="Twice daily">Twice daily</option>
+                                <option value="Three times daily">Three times daily</option>
+                                <option value="Four times daily">Four times daily</option>
+                                <option value="As needed">As needed</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="startDate">Start Date *</label>
+                            <input type="date" id="startDate" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="endDate">End Date</label>
+                            <input type="date" id="endDate" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="instructions">Instructions</label>
+                            <textarea id="instructions" class="form-control" rows="3" placeholder="Special instructions for taking this medication"></textarea>
+                        </div>
+                        
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <button class="btn btn-primary" id="saveMedication">Save Medication</button>
+                            <button class="btn btn-secondary" id="cancelMedication">Cancel</button>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label><i class="fas fa-phone"></i> Contact</label>
-                        <p>+91 9315058665</p>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Medication</th>
+                                    <th>Dosage</th>
+                                    <th>Frequency</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="medicationList">
+                                <!-- Medications will be populated by JavaScript -->
+                            </tbody>
+                        </table>
                     </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-stethoscope"></i> Departments</label>
-                        <p>Cardiology, Orthopedics, Neurology, Pediatrics, General Surgery</p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-clock"></i> Operating Hours</label>
-                        <p>Open 24x7</p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-user-md"></i> Chief Doctor</label>
-                        <p>Dr. Ranjeet</p>
-                    </div>
-                </div>
-                
-                <div class="section-header" style="margin-top: 2rem;">
-                    <h2 class="section-title">Hospital Staff</h2>
-                </div>
-                
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Role</th>
-                                <th>Contact</th>
-                                <th>Shift</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Dr. Ranjeet</td>
-                                <td>Chief Physician</td>
-                                <td>+91 9315058665</td>
-                                <td>9:00 AM - 6:00 PM</td>
-                            </tr>
-                            <tr>
-                                <td>Dr. Priya Sharma</td>
-                                <td>Cardiologist</td>
-                                <td>+91 9876543210</td>
-                                <td>10:00 AM - 7:00 PM</td>
-                            </tr>
-                            <tr>
-                                <td>Dr. Amit Kumar</td>
-                                <td>Orthopedic Surgeon</td>
-                                <td>+91 8765432109</td>
-                                <td>11:00 AM - 8:00 PM</td>
-                            </tr>
-                            <tr>
-                                <td>Dr. Neha Gupta</td>
-                                <td>Pediatrician</td>
-                                <td>+91 7654321098</td>
-                                <td>9:00 AM - 5:00 PM</td>
-                            </tr>
-                            <tr>
-                                <td>Dr. Rajesh Singh</td>
-                                <td>Neurologist</td>
-                                <td>+91 6543210987</td>
-                                <td>12:00 PM - 9:00 PM</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+                </section>
 
-            <!-- Add Patient Section -->
-            <section id="addPatient" class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Add New Patient</h2>
-                </div>
-                
-                <form id="patientForm" class="form-grid">
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" class="form-control" required>
+                <!-- Appointment Scheduler Section -->
+                <section id="appointmentScheduler" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Appointment Scheduler</h2>
+                        <button class="btn btn-primary" id="newAppointmentBtn">New Appointment</button>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="age">Age *</label>
-                        <input type="number" id="age" class="form-control" required min="0" max="120">
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <button class="btn btn-sm" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                            <h3 id="currentMonth">January 2023</h3>
+                            <button class="btn btn-sm" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="calendar" id="calendar">
+                            <!-- Calendar will be populated by JavaScript -->
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="gender">Gender *</label>
-                        <select id="gender" class="form-control" required>
-                            <option value="">Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="other">Other</option>
-                        </select>
+                    <div class="section-header" style="margin-top: 2rem;">
+                        <h2 class="section-title">Scheduled Appointments</h2>
+                        <div class="export-options">
+                            <div class="export-btn" onclick="exportData('appointments', 'csv')">
+                                <i class="fas fa-file-csv"></i> CSV
+                            </div>
+                            <div class="export-btn" onclick="exportData('appointments', 'pdf')">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="phone">Phone Number *</label>
-                        <input type="tel" id="phone" class="form-control" required>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Date & Time</th>
+                                    <th>Purpose</th>
+                                    <th>Doctor</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointmentsList">
+                                <!-- Appointments will be populated by JavaScript -->
+                            </tbody>
+                        </table>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" class="form-control">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <textarea id="address" class="form-control" rows="3"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="bloodGroup">Blood Group</label>
-                        <select id="bloodGroup" class="form-control">
-                            <option value="">Select Blood Group</option>
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="emergencyContact">Emergency Contact</label>
-                        <input type="text" id="emergencyContact" class="form-control">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="medicalHistory">Medical History</label>
-                        <textarea id="medicalHistory" class="form-control" rows="3" placeholder="Previous illnesses, surgeries, etc."></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="allergies">Allergies</label>
-                        <textarea id="allergies" class="form-control" rows="2" placeholder="Known allergies"></textarea>
-                    </div>
-                    
-                    <div class="form-group" style="grid-column: 1 / -1;">
-                        <button type="submit" class="btn btn-primary">Add Patient</button>
-                    </div>
-                </form>
-            </section>
+                </section>
 
-            <!-- Ongoing Patients Section -->
-            <section id="ongoingPatients" class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Ongoing Patients</h2>
-                    <div class="search-container">
-                        <input type="text" class="form-control" placeholder="Search patients..." id="searchOngoing">
+                <!-- Billing Section -->
+                <section id="billing" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Billing & Invoices</h2>
+                        <button class="btn btn-primary" id="newInvoiceBtn">New Invoice</button>
                     </div>
-                </div>
-                
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Age</th>
-                                <th>Gender</th>
-                                <th>Condition</th>
-                                <th>Admission Date</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ongoingPatientsList">
-                            <!-- Patients will be populated by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="billingPatient">Select Patient *</label>
+                            <select id="billingPatient" class="form-control" required>
+                                <option value="">Select Patient</option>
+                                <!-- Patients will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="invoiceDate">Invoice Date *</label>
+                            <input type="date" id="invoiceDate" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dueDate">Due Date *</label>
+                            <input type="date" id="dueDate" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="section-header" style="margin-top: 1rem;">
+                        <h3 class="section-title">Invoice Items</h3>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoiceItems">
+                                <tr>
+                                    <td><input type="text" class="form-control" placeholder="Item description"></td>
+                                    <td><input type="number" class="form-control" placeholder="Qty" min="1" value="1"></td>
+                                    <td><input type="number" class="form-control" placeholder="Price" step="0.01" min="0"></td>
+                                    <td>$0.00</td>
+                                    <td><button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3" style="text-align: right; font-weight: bold;">Subtotal:</td>
+                                    <td id="invoiceSubtotal">$0.00</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="text-align: right; font-weight: bold;">Tax (10%):</td>
+                                    <td id="invoiceTax">$0.00</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="text-align: right; font-weight: bold;">Total:</td>
+                                    <td id="invoiceTotal">$0.00</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <button class="btn btn-primary" id="addInvoiceItem">Add Item</button>
+                        <button class="btn btn-success" id="saveInvoice">Save Invoice</button>
+                        <button class="btn btn-secondary" id="printInvoice">Print Invoice</button>
+                    </div>
+                    
+                    <div class="section-header" style="margin-top: 2rem;">
+                        <h2 class="section-title">Invoice History</h2>
+                        <div class="export-options">
+                            <div class="export-btn" onclick="exportData('invoices', 'csv')">
+                                <i class="fas fa-file-csv"></i> CSV
+                            </div>
+                            <div class="export-btn" onclick="exportData('invoices', 'pdf')">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Invoice #</th>
+                                    <th>Patient</th>
+                                    <th>Date</th>
+                                    <th>Due Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoiceHistory">
+                                <!-- Invoices will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
 
-            <!-- Treated Patients Section -->
-            <section id="treatedPatients" class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Treated Patients</h2>
-                    <div class="search-container">
-                        <input type="text" class="form-control" placeholder="Search patients..." id="searchTreated">
+                <!-- Reports Section -->
+                <section id="reports" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Reports & Analytics</h2>
+                        <div class="export-options">
+                            <div class="export-btn" onclick="exportData('reports', 'csv')">
+                                <i class="fas fa-file-csv"></i> CSV
+                            </div>
+                            <div class="export-btn" onclick="exportData('reports', 'pdf')">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Age</th>
-                                <th>Gender</th>
-                                <th>Condition</th>
-                                <th>Treatment</th>
-                                <th>Discharge Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="treatedPatientsList">
-                            <!-- Patients will be populated by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+                    
+                    <div class="charts-container">
+                        <div class="chart-card">
+                            <h3>Patient Admissions Over Time</h3>
+                            <canvas id="admissionsChart" height="300"></canvas>
+                        </div>
+                        
+                        <div class="chart-card">
+                            <h3>Revenue Analysis</h3>
+                            <canvas id="revenueChart" height="300"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="section-header" style="margin-top: 2rem;">
+                        <h2 class="section-title">Financial Summary</h2>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon patients">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalRevenue">$0</h3>
+                                <p>Total Revenue</p>
+                            </div>
+                        </div>
 
-            <!-- Health Monitoring Section -->
-            <section id="healthMonitoring" class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Health Monitoring</h2>
-                </div>
-                
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="healthPatient">Select Patient *</label>
-                        <select id="healthPatient" class="form-control" required>
-                            <option value="">Select Patient</option>
-                            <!-- Patients will be populated by JavaScript -->
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="healthDate">Date *</label>
-                        <input type="date" id="healthDate" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="weight">Weight (kg)</label>
-                        <input type="number" id="weight" class="form-control" step="0.1">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="height">Height (cm)</label>
-                        <input type="number" id="height" class="form-control">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="bloodPressure">Blood Pressure (mmHg)</label>
-                        <input type="text" id="bloodPressure" class="form-control" placeholder="e.g. 120/80">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="heartRate">Heart Rate (bpm)</label>
-                        <input type="number" id="heartRate" class="form-control">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="temperature">Temperature (°F)</label>
-                        <input type="number" id="temperature" class="form-control" step="0.1">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="oxygenSaturation">Oxygen Saturation (%)</label>
-                        <input type="number" id="oxygenSaturation" class="form-control" min="0" max="100">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="glucose">Glucose Level (mg/dL)</label>
-                        <input type="number" id="glucose" class="form-control">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="notes">Notes</label>
-                        <textarea id="notes" class="form-control" rows="3"></textarea>
-                    </div>
-                    
-                    <div class="form-group" style="grid-column: 1 / -1;">
-                        <button type="button" id="addHealthData" class="btn btn-primary">Add Health Data</button>
-                    </div>
-                </div>
-                
-                <div class="section-header" style="margin-top: 2rem;">
-                    <h2 class="section-title">Health Data History</h2>
-                </div>
-                
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Patient</th>
-                                <th>BP</th>
-                                <th>HR</th>
-                                <th>Temp</th>
-                                <th>O2</th>
-                                <th>Glucose</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="healthDataList">
-                            <!-- Health data will be populated by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+                        <div class="stat-card">
+                            <div class="stat-icon ongoing">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="pendingInvoices">0</h3>
+                                <p>Pending Invoices</p>
+                            </div>
+                        </div>
 
-            <!-- Treatment History Section -->
-            <section id="treatmentHistory" class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Treatment History</h2>
-                    <div class="search-container">
-                        <input type="text" class="form-control" placeholder="Search treatments..." id="searchTreatment">
-                        <button class="btn btn-primary" style="margin-left: 10px;">Search</button>
-                    </div>
-                </div>
-                
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Patient</th>
-                                <th>Treatment</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Doctor</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="treatmentHistoryList">
-                            <!-- Treatment history will be populated by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+                        <div class="stat-card">
+                            <div class="stat-icon treated">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="paidInvoices">0</h3>
+                                <p>Paid Invoices</p>
+                            </div>
+                        </div>
 
-            <!-- Medication Tracker Section -->
-            <section id="medicationTracker" class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Medication Tracker</h2>
-                </div>
-                
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="medPatient">Select Patient *</label>
-                        <select id="medPatient" class="form-control" required>
-                            <option value="">Select Patient</option>
-                            <!-- Patients will be populated by JavaScript -->
-                        </select>
+                        <div class="stat-card">
+                            <div class="stat-icon medication">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="overdueInvoices">0</h3>
+                                <p>Overdue Invoices</p>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="medicationName">Medication Name *</label>
-                        <input type="text" id="medicationName" class="form-control" required>
+                    <div class="section-header" style="margin-top: 2rem;">
+                        <h2 class="section-title">Treatment Statistics</h2>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="dosage">Dosage *</label>
-                        <input type="text" id="dosage" class="form-control" required placeholder="e.g. 5mg">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Treatment Type</th>
+                                    <th>Number of Patients</th>
+                                    <th>Average Duration</th>
+                                    <th>Success Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody id="treatmentStats">
+                                <!-- Treatment stats will be populated by JavaScript -->
+                            </tbody>
+                        </table>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="frequency">Frequency *</label>
-                        <select id="frequency" class="form-control" required>
-                            <option value="">Select Frequency</option>
-                            <option value="once daily">Once Daily</option>
-                            <option value="twice daily">Twice Daily</option>
-                            <option value="three times daily">Three Times Daily</option>
-                            <option value="four times daily">Four Times Daily</option>
-                            <option value="as needed">As Needed</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="startDate">Start Date *</label>
-                        <input type="date" id="startDate" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="endDate">End Date</label>
-                        <input type="date" id="endDate" class="form-control">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="instructions">Instructions</label>
-                        <textarea id="instructions" class="form-control" rows="2" placeholder="Take with food, etc."></textarea>
-                    </div>
-                    
-                    <div class="form-group" style="grid-column: 1 / -1;">
-                        <button type="button" id="addMedication" class="btn btn-primary">Add Medication</button>
-                    </div>
-                </div>
-                
-                <div class="section-header" style="margin-top: 2rem;">
-                    <h2 class="section-title">Current Medications</h2>
-                </div>
-                
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Patient</th>
-                                <th>Medication</th>
-                                <th>Dosage</th>
-                                <th>Frequency</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="medicationList">
-                            <!-- Medications will be populated by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </main>
-    </div>
+                </section>
 
-    <!-- Notification Panel -->
-    <div class="notification-panel" id="notificationPanel">
-        <div class="notification-header">
-            <h3>Notifications</h3>
-            <button class="close-btn" id="closeNotifications">&times;</button>
+                <!-- Staff Management Section -->
+                <section id="staffManagement" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Staff Management</h2>
+                        <button class="btn btn-primary" id="addStaffBtn">Add Staff Member</button>
+                    </div>
+                    
+                    <div class="form-grid" id="staffForm" style="display: none;">
+                        <div class="form-group">
+                            <label for="staffName">Full Name *</label>
+                            <input type="text" id="staffName" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="staffRole">Role *</label>
+                            <select id="staffRole" class="form-control" required>
+                                <option value="">Select Role</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Nurse">Nurse</option>
+                                <option value="Administrator">Administrator</option>
+                                <option value="Receptionist">Receptionist</option>
+                                <option value="Technician">Technician</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="staffEmail">Email Address *</label>
+                            <input type="email" id="staffEmail" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="staffPhone">Phone Number *</label>
+                            <input type="tel" id="staffPhone" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="staffAddress">Address</label>
+                            <textarea id="staffAddress" class="form-control" rows="2"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="staffJoinDate">Join Date</label>
+                            <input type="date" id="staffJoinDate" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="staffStatus">Status</label>
+                            <select id="staffStatus" class="form-control">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                                <option value="On Leave">On Leave</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <button class="btn btn-primary" id="saveStaff">Save Staff Member</button>
+                            <button class="btn btn-secondary" id="cancelStaff">Cancel</button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Join Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="staffList">
+                                <!-- Staff will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">System Settings</h2>
+                    </div>
+                    
+                    <div class="tabs">
+                        <div class="tab active" data-tab="general">General</div>
+                        <div class="tab" data-tab="notifications">Notifications</div>
+                        <div class="tab" data-tab="backup">Backup & Restore</div>
+                    </div>
+                    
+                    <div class="tab-content active" id="generalTab">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="clinicName">Clinic Name</label>
+                                <input type="text" id="clinicName" class="form-control" value="Ranjeet Health Care">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="clinicAddress">Clinic Address</label>
+                                <input type="text" id="clinicAddress" class="form-control" value="New Delhi, Nirman Vihar, Near by Shiv-Mandir">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="clinicPhone">Clinic Phone</label>
+                                <input type="text" id="clinicPhone" class="form-control" value="+91 9315058665">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="clinicEmail">Clinic Email</label>
+                                <input type="email" id="clinicEmail" class="form-control" value="info@ranjeethealthcare.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="currency">Currency</label>
+                                <select id="currency" class="form-control">
+                                    <option value="USD">USD ($)</option>
+                                    <option value="EUR">EUR (€)</option>
+                                    <option value="GBP">GBP (£)</option>
+                                    <option value="INR" selected>INR (₹)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="dateFormat">Date Format</label>
+                                <select id="dateFormat" class="form-control">
+                                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="timeFormat">Time Format</label>
+                                <select id="timeFormat" class="form-control">
+                                    <option value="12h">12-hour format</option>
+                                    <option value="24h">24-hour format</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <button class="btn btn-primary">Save Settings</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="notificationsTab">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="emailNotifications" checked>
+                                    <span class="checkmark"></span>
+                                    Email Notifications
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="smsNotifications">
+                                    <span class="checkmark"></span>
+                                    SMS Notifications
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="appointmentReminders" checked>
+                                    <span class="checkmark"></span>
+                                    Appointment Reminders
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="billingReminders" checked>
+                                    <span class="checkmark"></span>
+                                    Billing Reminders
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="medicationAlerts" checked>
+                                    <span class="checkmark"></span>
+                                    Medication Alerts
+                                </label>
+                            </div>
+                            
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <button class="btn btn-primary">Save Notification Settings</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="backupTab">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <h3>Backup Data</h3>
+                                <p>Create a backup of all system data</p>
+                                <button class="btn btn-primary" id="backupBtn">Create Backup</button>
+                            </div>
+                            
+                            <div class="form-group">
+                                <h3>Restore Data</h3>
+                                <p>Restore from a previous backup</p>
+                                <input type="file" id="restoreFile" class="form-control" accept=".json">
+                                <button class="btn btn-primary" id="restoreBtn" style="margin-top: 1rem;">Restore Backup</button>
+                            </div>
+                            
+                            <div class="form-group">
+                                <h3>Export Data</h3>
+                                <p>Export data for external use</p>
+                                <div class="export-options">
+                                    <div class="export-btn" onclick="exportData('all', 'json')">
+                                        <i class="fas fa-file-code"></i> JSON
+                                    </div>
+                                    <div class="export-btn" onclick="exportData('all', 'csv')">
+                                        <i class="fas fa-file-csv"></i> CSV
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+            </main>
         </div>
-        
-        <div class="notification-item">
-            <h4>New Lab Results</h4>
-            <p>Patient: Rajesh Kumar</p>
-            <small>10 minutes ago</small>
-        </div>
-        
-        <div class="notification-item warning">
-            <h4>Medication Low Stock</h4>
-            <p>Amoxicillin is running low</p>
-            <small>Yesterday</small>
-        </div>
-        
-        <div class="notification-item danger">
-            <h4>Appointment Reminder</h4>
-            <p>Dr. Sharma has a surgery scheduled in 1 hour</p>
-            <small>2 hours ago</small>
-        </div>
-    </div>
 
-    <!-- Modal for Patient Details -->
-    <div class="modal-backdrop" id="patientModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>Patient Details</h3>
-                <button class="close-btn" id="closeModal">&times;</button>
+        <!-- Notification Panel -->
+        <div class="notification-panel" id="notificationPanel">
+            <div class="notification-header">
+                <h3>Notifications</h3>
+                <button class="close-btn" id="closeNotifications">&times;</button>
             </div>
-            <div class="modal-body">
-                <!-- Patient details will be displayed here -->
+            
+            <div class="notification-item">
+                <h4>New Lab Results</h4>
+                <p>Patient: Rajesh Kumar</p>
+                <small>10 minutes ago</small>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary">Edit</button>
-                <button class="btn" style="background: var(--light-gray);">Close</button>
+            
+            <div class="notification-item warning">
+                <h4>Medication Low Stock</h4>
+                <p>Amoxicillin is running low</p>
+                <small>Yesterday</small>
+            </div>
+            
+            <div class="notification-item danger">
+                <h4>Appointment Reminder</h4>
+                <p>Dr. Sharma has a surgery scheduled in 1 hour</p>
+                <small>2 hours ago</small>
+            </div>
+
+            <div class="notification-item">
+                <h4>New Message</h4>
+                <p>From: Dr. Priya Sharma</p>
+                <small>5 hours ago</small>
+            </div>
+
+            <div class="notification-item">
+                <h4>Payment Received</h4>
+                <p>Amount: $150.00 from Amit Sharma</p>
+                <small>1 day ago</small>
             </div>
         </div>
-    </div>
 
-    <footer>
-        <p>&copy; 2024 Ranjeet Health Care. All Rights Reserved. | <i class="fas fa-map-marker-alt"></i> New Delhi, Nirman Vihar, Near by Shiv-Mandir | <i class="fas fa-phone"></i> +91 9315058665</p>
-    </footer>
+        <!-- Modal for Patient Details -->
+        <div class="modal-backdrop" id="patientModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Patient Details</h3>
+                    <button class="close-btn" id="closeModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Patient details will be displayed here -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn" style="background: var(--light-gray);">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Alert -->
+        <div class="emergency-alert" id="emergencyAlert">
+            <i class="fas fa-bell"></i>
+            <div>
+                <h4>Emergency Alert</h4>
+                <p>Patient in Room 102 requires immediate attention</p>
+            </div>
+        </div>
+
+        <!-- Toast Container -->
+        <div class="toast-container" id="toastContainer"></div>
+
+        <footer>
+            <p>&copy; 2024 Ranjeet Health Care. All Rights Reserved. | <i class="fas fa-map-marker-alt"></i> New Delhi, Nirman Vihar, Near by Shiv-Mandir | <i class="fas fa-phone"></i> +91 9315058665</p>
+        </footer>
+    </div>
 
     <script>
         // Data storage
@@ -1295,6 +2071,91 @@
         let healthData = JSON.parse(localStorage.getItem('healthData')) || [];
         let medications = JSON.parse(localStorage.getItem('medications')) || [];
         let treatments = JSON.parse(localStorage.getItem('treatments')) || [];
+        let appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+        let invoices = JSON.parse(localStorage.getItem('invoices')) || [];
+        let staff = JSON.parse(localStorage.getItem('staff')) || [];
+        let messages = JSON.parse(localStorage.getItem('messages')) || [];
+
+        // Initialize with sample data if empty
+        if (patients.length === 0) {
+            patients = [
+                {
+                    id: '1',
+                    name: 'Rajesh Kumar',
+                    age: 45,
+                    gender: 'male',
+                    phone: '+91 9876543210',
+                    email: 'rajesh@example.com',
+                    address: '123 Main St, New Delhi',
+                    bloodGroup: 'B+',
+                    emergencyContact: '+91 9123456789',
+                    medicalHistory: 'Hypertension, Diabetes',
+                    allergies: 'None',
+                    status: 'ongoing',
+                    admissionDate: new Date('2023-05-15').toISOString(),
+                    condition: 'Cardiac issues'
+                },
+                {
+                    id: '2',
+                    name: 'Sunita Patel',
+                    age: 32,
+                    gender: 'female',
+                    phone: '+91 9765432109',
+                    email: 'sunita@example.com',
+                    address: '456 Oak Ave, New Delhi',
+                    bloodGroup: 'A+',
+                    emergencyContact: '+91 9234567890',
+                    medicalHistory: 'Asthma',
+                    allergies: 'Dust',
+                    status: 'ongoing',
+                    admissionDate: new Date('2023-06-20').toISOString(),
+                    condition: 'Respiratory infection'
+                },
+                {
+                    id: '3',
+                    name: 'Amit Sharma',
+                    age: 28,
+                    gender: 'male',
+                    phone: '+91 9654321098',
+                    email: 'amit@example.com',
+                    address: '789 Pine Rd, New Delhi',
+                    bloodGroup: 'O+',
+                    emergencyContact: '+91 9345678901',
+                    medicalHistory: 'None',
+                    allergies: 'Penicillin',
+                    status: 'treated',
+                    admissionDate: new Date('2023-04-10').toISOString(),
+                    dischargeDate: new Date('2023-04-18').toISOString(),
+                    condition: 'Appendicitis',
+                    treatment: 'Appendectomy'
+                }
+            ];
+            localStorage.setItem('patients', JSON.stringify(patients));
+        }
+
+        if (appointments.length === 0) {
+            appointments = [
+                {
+                    id: '1',
+                    patientId: '1',
+                    date: new Date(Date.now() + 86400000).toISOString(), // Tomorrow
+                    purpose: 'Follow-up consultation',
+                    doctor: 'Dr. Ranjeet',
+                    status: 'scheduled',
+                    notes: 'Check recovery progress'
+                },
+                {
+                    id: '2',
+                    patientId: '2',
+                    date: new Date(Date.now() + 172800000).toISOString(), // Day after tomorrow
+                    purpose: 'Physical therapy',
+                    doctor: 'Dr. Priya',
+                    status: 'scheduled',
+                    notes: 'Session 3 of 5'
+                }
+            ];
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+        }
 
         // DOM Elements
         const themeToggle = document.getElementById('themeToggle');
@@ -1305,13 +2166,35 @@
         const sections = document.querySelectorAll('.section');
         const patientModal = document.getElementById('patientModal');
         const closeModal = document.getElementById('closeModal');
+        const loginScreen = document.getElementById('loginScreen');
+        const appContainer = document.getElementById('appContainer');
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const emergencyAlert = document.getElementById('emergencyAlert');
+        const toastContainer = document.getElementById('toastContainer');
 
         // Initialize the application
         function initApp() {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (!isLoggedIn) {
+                showLoginScreen();
+                return;
+            }
+            
             // Set current date for date inputs
             const today = new Date().toISOString().split('T')[0];
-            document.getElementById('healthDate').value = today;
-            document.getElementById('startDate').value = today;
+            const dateInputs = document.querySelectorAll('input[type="date"]');
+            dateInputs.forEach(input => {
+                if (!input.id.includes('endDate') && !input.id.includes('dueDate')) {
+                    input.value = today;
+                }
+            });
+            
+            // Set due date to 30 days from now
+            const dueDate = new Date();
+            dueDate.setDate(dueDate.getDate() + 30);
+            document.getElementById('dueDate').value = dueDate.toISOString().split('T')[0];
             
             // Load data into UI
             updateDashboard();
@@ -1321,10 +2204,60 @@
             renderHealthData();
             renderMedications();
             renderTreatmentHistory();
+            renderAppointments();
+            renderInvoices();
+            initCalendar();
             
             // Initialize charts
             initCharts();
+            
+            // Simulate emergency alert after 5 seconds
+            setTimeout(showEmergencyAlert, 5000);
+            
+            // Simulate incoming message after 10 seconds
+            setTimeout(() => {
+                showToast('New message from Dr. Priya Sharma', 'info');
+            }, 10000);
         }
+
+        // Show login screen
+        function showLoginScreen() {
+            loginScreen.style.display = 'flex';
+            appContainer.style.display = 'none';
+        }
+
+        // Hide login screen
+        function hideLoginScreen() {
+            loginScreen.style.display = 'none';
+            appContainer.style.display = 'block';
+        }
+
+        // Login functionality
+        loginBtn.addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username && password) {
+                // Simple authentication (in a real app, this would be server-side)
+                if (username === 'admin' && password === 'password') {
+                    localStorage.setItem('isLoggedIn', 'true');
+                    hideLoginScreen();
+                    showToast('Login successful!', 'success');
+                    initApp();
+                } else {
+                    showToast('Invalid credentials', 'error');
+                }
+            } else {
+                showToast('Please enter username and password', 'error');
+            }
+        });
+
+        // Logout functionality
+        logoutBtn.addEventListener('click', function() {
+            localStorage.setItem('isLoggedIn', 'false');
+            showLoginScreen();
+            showToast('Logged out successfully', 'success');
+        });
 
         // Toggle Dark Mode
         themeToggle.addEventListener('click', () => {
@@ -1357,6 +2290,8 @@
         // Navigation
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
+                if (this.id === 'logoutBtn') return;
+                
                 e.preventDefault();
                 
                 // Remove active class from all links
@@ -1376,6 +2311,25 @@
                 const targetSection = document.getElementById(this.dataset.section);
                 if (targetSection) {
                     targetSection.classList.add('active');
+                    
+                    // Refresh data for specific sections
+                    if (this.dataset.section === 'ongoingPatients') {
+                        renderOngoingPatients();
+                    } else if (this.dataset.section === 'treatedPatients') {
+                        renderTreatedPatients();
+                    } else if (this.dataset.section === 'healthMonitoring') {
+                        renderHealthData();
+                    } else if (this.dataset.section === 'medicationTracker') {
+                        renderMedications();
+                    } else if (this.dataset.section === 'treatmentHistory') {
+                        renderTreatmentHistory();
+                    } else if (this.dataset.section === 'appointmentScheduler') {
+                        renderAppointments();
+                    } else if (this.dataset.section === 'billing') {
+                        renderInvoices();
+                    } else if (this.dataset.section === 'reports') {
+                        initCharts();
+                    }
                 }
             });
         });
@@ -1384,6 +2338,46 @@
         closeModal.addEventListener('click', () => {
             patientModal.classList.remove('active');
         });
+
+        // Show emergency alert
+        function showEmergencyAlert() {
+            emergencyAlert.classList.add('show');
+            
+            // Auto hide after 10 seconds
+            setTimeout(() => {
+                emergencyAlert.classList.remove('show');
+            }, 10000);
+        }
+
+        // Emergency alert click handler
+        emergencyAlert.addEventListener('click', () => {
+            emergencyAlert.classList.remove('show');
+        });
+
+        // Show toast notification
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                <div>${message}</div>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toastContainer.removeChild(toast);
+                }, 300);
+            }, 5000);
+        }
 
         // Add Patient Form
         document.getElementById('patientForm').addEventListener('submit', function(e) {
@@ -1402,27 +2396,42 @@
                 medicalHistory: document.getElementById('medicalHistory').value,
                 allergies: document.getElementById('allergies').value,
                 status: 'ongoing',
-                admissionDate: new Date().toISOString()
+                admissionDate: new Date().toISOString(),
+                photo: null
             };
             
-            patients.push(newPatient);
-            saveData();
-            this.reset();
-            
-            // Show success message
-            alert('Patient added successfully!');
-            
-            // Update UI
+            // Handle photo upload
+            const photoInput = document.getElementById('patientPhoto');
+            if (photoInput.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newPatient.photo = e.target.result;
+                    patients.push(newPatient);
+                    saveData();
+                    showToast('Patient added successfully!', 'success');
+                    updateUIAfterPatientAdded();
+                };
+                reader.readAsDataURL(photoInput.files[0]);
+            } else {
+                patients.push(newPatient);
+                saveData();
+                showToast('Patient added successfully!', 'success');
+                updateUIAfterPatientAdded();
+            }
+        });
+
+        function updateUIAfterPatientAdded() {
+            document.getElementById('patientForm').reset();
             updateDashboard();
             populatePatientDropdowns();
             renderOngoingPatients();
-        });
+        }
 
         // Add Health Data
         document.getElementById('addHealthData').addEventListener('click', function() {
             const patientId = document.getElementById('healthPatient').value;
             if (!patientId) {
-                alert('Please select a patient');
+                showToast('Please select a patient', 'error');
                 return;
             }
             
@@ -1453,18 +2462,23 @@
             document.getElementById('glucose').value = '';
             document.getElementById('notes').value = '';
             
-            // Show success message
-            alert('Health data added successfully!');
-            
-            // Update UI
+            showToast('Health data added successfully!', 'success');
             renderHealthData();
         });
 
         // Add Medication
-        document.getElementById('addMedication').addEventListener('click', function() {
+        document.getElementById('addMedicationBtn').addEventListener('click', function() {
+            document.getElementById('medicationForm').style.display = 'grid';
+        });
+
+        document.getElementById('cancelMedication').addEventListener('click', function() {
+            document.getElementById('medicationForm').style.display = 'none';
+        });
+
+        document.getElementById('saveMedication').addEventListener('click', function() {
             const patientId = document.getElementById('medPatient').value;
             if (!patientId) {
-                alert('Please select a patient');
+                showToast('Please select a patient', 'error');
                 return;
             }
             
@@ -1483,20 +2497,189 @@
             medications.push(newMedication);
             saveData();
             
-            // Reset form
-            document.getElementById('medicationName').value = '';
-            document.getElementById('dosage').value = '';
-            document.getElementById('frequency').value = '';
-            document.getElementById('endDate').value = '';
-            document.getElementById('instructions').value = '';
+            // Reset form and hide
+            document.getElementById('medicationForm').reset();
+            document.getElementById('medicationForm').style.display = 'none';
             
-            // Show success message
-            alert('Medication added successfully!');
-            
-            // Update UI
+            showToast('Medication added successfully!', 'success');
             updateDashboard();
             renderMedications();
         });
+
+        // Initialize calendar
+        function initCalendar() {
+            const now = new Date();
+            renderCalendar(now.getFullYear(), now.getMonth());
+            
+            // Add event listeners for prev/next month buttons
+            document.getElementById('prevMonth').addEventListener('click', function() {
+                now.setMonth(now.getMonth() - 1);
+                renderCalendar(now.getFullYear(), now.getMonth());
+            });
+            
+            document.getElementById('nextMonth').addEventListener('click', function() {
+                now.setMonth(now.getMonth() + 1);
+                renderCalendar(now.getFullYear(), now.getMonth());
+            });
+        }
+
+        // Render calendar
+        function renderCalendar(year, month) {
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+            
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            const calendar = document.getElementById('calendar');
+            calendar.innerHTML = '';
+            
+            // Add day headers
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            days.forEach(day => {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.style.fontWeight = 'bold';
+                dayElement.textContent = day;
+                calendar.appendChild(dayElement);
+            });
+            
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day';
+                calendar.appendChild(emptyDay);
+            }
+            
+            // Add days of the month
+            const today = new Date();
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.textContent = i;
+                
+                // Highlight current day
+                if (i === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                    dayElement.classList.add('current');
+                }
+                
+                // Check if day has appointments
+                const hasAppointment = appointments.some(apt => {
+                    const aptDate = new Date(apt.date);
+                    return aptDate.getDate() === i && aptDate.getMonth() === month && aptDate.getFullYear() === year;
+                });
+                
+                if (hasAppointment) {
+                    dayElement.classList.add('has-appointment');
+                }
+                
+                calendar.appendChild(dayElement);
+            }
+        }
+
+        // Export data
+        function exportData(type, format) {
+            let data = [];
+            let filename = '';
+            
+            switch (type) {
+                case 'patients':
+                    data = patients;
+                    filename = 'patients';
+                    break;
+                case 'appointments':
+                    data = appointments;
+                    filename = 'appointments';
+                    break;
+                case 'invoices':
+                    data = invoices;
+                    filename = 'invoices';
+                    break;
+                case 'all':
+                    data = {
+                        patients: patients,
+                        healthData: healthData,
+                        medications: medications,
+                        treatments: treatments,
+                        appointments: appointments,
+                        invoices: invoices,
+                        staff: staff
+                    };
+                    filename = 'ranjeet_healthcare_data';
+                    break;
+            }
+            
+            if (format === 'csv') {
+                exportToCSV(data, filename);
+            } else if (format === 'pdf') {
+                showToast('PDF export functionality would be implemented here', 'info');
+            } else if (format === 'json') {
+                exportToJSON(data, filename);
+            }
+        }
+
+        // Export to CSV
+        function exportToCSV(data, filename) {
+            if (data.length === 0) {
+                showToast('No data to export', 'error');
+                return;
+            }
+            
+            // Handle both array and object data
+            let csvContent = '';
+            if (Array.isArray(data)) {
+                const headers = Object.keys(data[0]);
+                csvContent = [
+                    headers.join(','),
+                    ...data.map(row => headers.map(header => JSON.stringify(row[header] || '')).join(','))
+                ].join('\n');
+            } else {
+                // For object data (like 'all' export)
+                for (const key in data) {
+                    if (data[key].length > 0) {
+                        const headers = Object.keys(data[key][0]);
+                        csvContent += `=== ${key.toUpperCase()} ===\n`;
+                        csvContent += [
+                            headers.join(','),
+                            ...data[key].map(row => headers.map(header => JSON.stringify(row[header] || '')).join(','))
+                        ].join('\n');
+                        csvContent += '\n\n';
+                    }
+                }
+            }
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', `${filename}_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast('Data exported successfully', 'success');
+        }
+
+        // Export to JSON
+        function exportToJSON(data, filename) {
+            const jsonContent = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonContent], { type: 'application/json' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', `${filename}_${new Date().toISOString().split('T')[0]}.json`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast('Data exported successfully', 'success');
+        }
 
         // Save data to localStorage
         function saveData() {
@@ -1504,6 +2687,10 @@
             localStorage.setItem('healthData', JSON.stringify(healthData));
             localStorage.setItem('medications', JSON.stringify(medications));
             localStorage.setItem('treatments', JSON.stringify(treatments));
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+            localStorage.setItem('invoices', JSON.stringify(invoices));
+            localStorage.setItem('staff', JSON.stringify(staff));
+            localStorage.setItem('messages', JSON.stringify(messages));
         }
 
         // Update dashboard statistics
@@ -1515,16 +2702,19 @@
             
             // Update recent activities
             renderRecentActivities();
+            renderUpcomingAppointments();
         }
 
         // Populate patient dropdowns
         function populatePatientDropdowns() {
             const healthPatient = document.getElementById('healthPatient');
             const medPatient = document.getElementById('medPatient');
+            const billingPatient = document.getElementById('billingPatient');
             
             // Clear existing options
             healthPatient.innerHTML = '<option value="">Select Patient</option>';
             medPatient.innerHTML = '<option value="">Select Patient</option>';
+            billingPatient.innerHTML = '<option value="">Select Patient</option>';
             
             // Add patients
             patients.forEach(patient => {
@@ -1538,6 +2728,11 @@
                     option2.value = patient.id;
                     option2.textContent = `${patient.name} (${patient.age} years)`;
                     medPatient.appendChild(option2);
+                    
+                    const option3 = document.createElement('option');
+                    option3.value = patient.id;
+                    option3.textContent = `${patient.name} (${patient.age} years)`;
+                    billingPatient.appendChild(option3);
                 }
             });
         }
@@ -1693,6 +2888,69 @@
             });
         }
 
+        // Render appointments
+        function renderAppointments() {
+            const appointmentsList = document.getElementById('appointmentsList');
+            appointmentsList.innerHTML = '';
+            
+            if (appointments.length === 0) {
+                appointmentsList.innerHTML = '<tr><td colspan="6" style="text-align: center;">No appointments scheduled</td></tr>';
+                return;
+            }
+            
+            // Sort appointments by date
+            const sortedAppointments = appointments.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            sortedAppointments.forEach(apt => {
+                const patient = patients.find(p => p.id === apt.patientId);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${patient ? patient.name : 'Unknown'}</td>
+                    <td>${formatDateTime(apt.date)}</td>
+                    <td>${apt.purpose || 'Consultation'}</td>
+                    <td>${apt.doctor || 'Dr. Ranjeet'}</td>
+                    <td><span class="badge ${apt.status === 'completed' ? 'badge-success' : apt.status === 'cancelled' ? 'badge-danger' : 'badge-warning'}">${apt.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" onclick="viewAppointment('${apt.id}')">View</button>
+                        ${apt.status === 'scheduled' ? `
+                            <button class="btn btn-sm btn-success" onclick="completeAppointment('${apt.id}')">Complete</button>
+                            <button class="btn btn-sm btn-danger" onclick="cancelAppointment('${apt.id}')">Cancel</button>
+                        ` : ''}
+                    </td>
+                `;
+                appointmentsList.appendChild(tr);
+            });
+        }
+
+        // Render invoices
+        function renderInvoices() {
+            const invoiceHistory = document.getElementById('invoiceHistory');
+            invoiceHistory.innerHTML = '';
+            
+            if (invoices.length === 0) {
+                invoiceHistory.innerHTML = '<tr><td colspan="7" style="text-align: center;">No invoices available</td></tr>';
+                return;
+            }
+            
+            invoices.forEach(invoice => {
+                const patient = patients.find(p => p.id === invoice.patientId);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${invoice.id}</td>
+                    <td>${patient ? patient.name : 'Unknown'}</td>
+                    <td>${formatDate(invoice.date)}</td>
+                    <td>${formatDate(invoice.dueDate)}</td>
+                    <td>$${invoice.total.toFixed(2)}</td>
+                    <td><span class="badge ${invoice.paid ? 'badge-success' : new Date(invoice.dueDate) < new Date() ? 'badge-danger' : 'badge-warning'}">${invoice.paid ? 'Paid' : new Date(invoice.dueDate) < new Date() ? 'Overdue' : 'Pending'}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" onclick="viewInvoice('${invoice.id}')">View</button>
+                        ${!invoice.paid ? `<button class="btn btn-sm btn-success" onclick="markInvoicePaid('${invoice.id}')">Mark Paid</button>` : ''}
+                    </td>
+                `;
+                invoiceHistory.appendChild(tr);
+            });
+        }
+
         // Render recent activities
         function renderRecentActivities() {
             const recentActivities = document.getElementById('recentActivities');
@@ -1716,6 +2974,41 @@
                     <td><span class="badge ${activity.status === 'Completed' ? 'badge-success' : activity.status === 'In Progress' ? 'badge-warning' : 'badge-primary'}">${activity.status}</span></td>
                 `;
                 recentActivities.appendChild(tr);
+            });
+        }
+
+        // Render upcoming appointments
+        function renderUpcomingAppointments() {
+            const upcomingAppointments = document.getElementById('upcomingAppointments');
+            upcomingAppointments.innerHTML = '';
+            
+            // Get upcoming appointments (next 7 days)
+            const nextWeek = new Date();
+            nextWeek.setDate(nextWeek.getDate() + 7);
+            
+            const upcoming = appointments.filter(apt => {
+                const aptDate = new Date(apt.date);
+                return aptDate >= new Date() && aptDate <= nextWeek && apt.status === 'scheduled';
+            });
+            
+            if (upcoming.length === 0) {
+                upcomingAppointments.innerHTML = '<tr><td colspan="5" style="text-align: center;">No upcoming appointments</td></tr>';
+                return;
+            }
+            
+            upcoming.forEach(apt => {
+                const patient = patients.find(p => p.id === apt.patientId);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${patient ? patient.name : 'Unknown'}</td>
+                    <td>${formatDateTime(apt.date)}</td>
+                    <td>${apt.purpose || 'Consultation'}</td>
+                    <td>${apt.doctor || 'Dr. Ranjeet'}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" onclick="viewAppointment('${apt.id}')">View</button>
+                    </td>
+                `;
+                upcomingAppointments.appendChild(tr);
             });
         }
 
@@ -1777,12 +3070,70 @@
                     }
                 }
             });
+
+            // Admissions Chart
+            const admissionsCtx = document.getElementById('admissionsChart').getContext('2d');
+            const admissionsChart = new Chart(admissionsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Patient Admissions',
+                        data: [12, 19, 15, 17, 14, 16],
+                        backgroundColor: '#4e73df',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+
+            // Revenue Chart
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+            const revenueChart = new Chart(revenueCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Revenue (in ₹)',
+                        data: [125000, 135000, 120000, 140000, 145000, 150000],
+                        borderColor: '#1cc88a',
+                        tension: 0.3,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
         }
 
         // Format date
         function formatDate(dateString) {
             const options = { year: 'numeric', month: 'short', day: 'numeric' };
             return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // Format date and time
+        function formatDateTime(dateTimeString) {
+            const options = { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return new Date(dateTimeString).toLocaleDateString(undefined, options);
         }
 
         // Mark patient as treated
@@ -1796,7 +3147,7 @@
                     updateDashboard();
                     renderOngoingPatients();
                     renderTreatedPatients();
-                    alert('Patient marked as treated successfully!');
+                    showToast('Patient marked as treated successfully!', 'success');
                 }
             }
         }
@@ -1811,7 +3162,49 @@
                     saveData();
                     updateDashboard();
                     renderMedications();
-                    alert('Medication marked as completed successfully!');
+                    showToast('Medication marked as completed successfully!', 'success');
+                }
+            }
+        }
+
+        // Complete appointment
+        function completeAppointment(appointmentId) {
+            if (confirm('Mark this appointment as completed?')) {
+                const appointment = appointments.find(a => a.id === appointmentId);
+                if (appointment) {
+                    appointment.status = 'completed';
+                    saveData();
+                    renderAppointments();
+                    renderUpcomingAppointments();
+                    showToast('Appointment marked as completed successfully!', 'success');
+                }
+            }
+        }
+
+        // Cancel appointment
+        function cancelAppointment(appointmentId) {
+            if (confirm('Cancel this appointment?')) {
+                const appointment = appointments.find(a => a.id === appointmentId);
+                if (appointment) {
+                    appointment.status = 'cancelled';
+                    saveData();
+                    renderAppointments();
+                    renderUpcomingAppointments();
+                    showToast('Appointment cancelled successfully!', 'success');
+                }
+            }
+        }
+
+        // Mark invoice as paid
+        function markInvoicePaid(invoiceId) {
+            if (confirm('Mark this invoice as paid?')) {
+                const invoice = invoices.find(i => i.id === invoiceId);
+                if (invoice) {
+                    invoice.paid = true;
+                    invoice.paymentDate = new Date().toISOString();
+                    saveData();
+                    renderInvoices();
+                    showToast('Invoice marked as paid successfully!', 'success');
                 }
             }
         }
@@ -1835,6 +3228,7 @@
                     <p><strong>Status:</strong> ${patient.status}</p>
                     <p><strong>Admission Date:</strong> ${formatDate(patient.admissionDate)}</p>
                     ${patient.dischargeDate ? `<p><strong>Discharge Date:</strong> ${formatDate(patient.dischargeDate)}</p>` : ''}
+                    ${patient.photo ? `<img src="${patient.photo}" alt="Patient Photo" style="max-width: 100%; margin-top: 1rem; border-radius: 8px;">` : ''}
                 `;
                 patientModal.classList.add('active');
             }
@@ -1904,8 +3298,156 @@
             }
         }
 
+        // View appointment
+        function viewAppointment(appointmentId) {
+            const appointment = appointments.find(a => a.id === appointmentId);
+            if (appointment) {
+                const patient = patients.find(p => p.id === appointment.patientId);
+                const modalBody = document.querySelector('.modal-body');
+                modalBody.innerHTML = `
+                    <h4>Appointment Details</h4>
+                    <p><strong>Patient:</strong> ${patient ? patient.name : 'Unknown'}</p>
+                    <p><strong>Date & Time:</strong> ${formatDateTime(appointment.date)}</p>
+                    <p><strong>Purpose:</strong> ${appointment.purpose || 'Consultation'}</p>
+                    <p><strong>Doctor:</strong> ${appointment.doctor || 'Dr. Ranjeet'}</p>
+                    <p><strong>Status:</strong> ${appointment.status}</p>
+                    <p><strong>Notes:</strong> ${appointment.notes || 'N/A'}</p>
+                `;
+                patientModal.classList.add('active');
+            }
+        }
+
+        // View invoice
+        function viewInvoice(invoiceId) {
+            const invoice = invoices.find(i => i.id === invoiceId);
+            if (invoice) {
+                const patient = patients.find(p => p.id === invoice.patientId);
+                const modalBody = document.querySelector('.modal-body');
+                modalBody.innerHTML = `
+                    <h4>Invoice Details</h4>
+                    <p><strong>Invoice #:</strong> ${invoice.id}</p>
+                    <p><strong>Patient:</strong> ${patient ? patient.name : 'Unknown'}</p>
+                    <p><strong>Date:</strong> ${formatDate(invoice.date)}</p>
+                    <p><strong>Due Date:</strong> ${formatDate(invoice.dueDate)}</p>
+                    <p><strong>Status:</strong> ${invoice.paid ? 'Paid' : 'Pending'}</p>
+                    ${invoice.paymentDate ? `<p><strong>Payment Date:</strong> ${formatDate(invoice.paymentDate)}</p>` : ''}
+                    
+                    <h5 style="margin-top: 1.5rem;">Items</h5>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${invoice.items.map(item => `
+                                <tr>
+                                    <td>${item.description}</td>
+                                    <td>${item.quantity}</td>
+                                    <td>$${item.price.toFixed(2)}</td>
+                                    <td>$${(item.quantity * item.price).toFixed(2)}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" style="text-align: right; font-weight: bold;">Subtotal:</td>
+                                <td>$${invoice.subtotal.toFixed(2)}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align: right; font-weight: bold;">Tax:</td>
+                                <td>$${invoice.tax.toFixed(2)}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align: right; font-weight: bold;">Total:</td>
+                                <td>$${invoice.total.toFixed(2)}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                `;
+                patientModal.classList.add('active');
+            }
+        }
+
         // Initialize the application when the DOM is loaded
-        document.addEventListener('DOMContentLoaded', initApp);
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (isLoggedIn) {
+                initApp();
+            } else {
+                showLoginScreen();
+            }
+            
+            // Add tab functionality for settings section
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(`${tabId}Tab`).classList.add('active');
+                });
+            });
+            
+            // Add invoice item functionality
+            document.getElementById('addInvoiceItem').addEventListener('click', function() {
+                const invoiceItems = document.getElementById('invoiceItems');
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td><input type="text" class="form-control" placeholder="Item description"></td>
+                    <td><input type="number" class="form-control" placeholder="Qty" min="1" value="1"></td>
+                    <td><input type="number" class="form-control" placeholder="Price" step="0.01" min="0"></td>
+                    <td>$0.00</td>
+                    <td><button class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove(); calculateInvoiceTotal();"><i class="fas fa-trash"></i></button></td>
+                `;
+                invoiceItems.appendChild(newRow);
+                
+                // Add event listeners to new inputs
+                const inputs = newRow.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.addEventListener('input', calculateInvoiceTotal);
+                });
+            });
+            
+            // Add event listeners to existing invoice item inputs
+            const invoiceInputs = document.querySelectorAll('#invoiceItems input');
+            invoiceInputs.forEach(input => {
+                input.addEventListener('input', calculateInvoiceTotal);
+            });
+        });
+
+        // Calculate invoice total
+        function calculateInvoiceTotal() {
+            let subtotal = 0;
+            const rows = document.querySelectorAll('#invoiceItems tr');
+            
+            rows.forEach(row => {
+                const qty = parseFloat(row.querySelector('input[type="number"]:nth-child(2)').value) || 0;
+                const price = parseFloat(row.querySelector('input[type="number"]:nth-child(3)').value) || 0;
+                const total = qty * price;
+                
+                row.querySelector('td:nth-child(4)').textContent = '$' + total.toFixed(2);
+                subtotal += total;
+            });
+            
+            const tax = subtotal * 0.1; // 10% tax
+            const total = subtotal + tax;
+            
+            document.getElementById('invoiceSubtotal').textContent = '$' + subtotal.toFixed(2);
+            document.getElementById('invoiceTax').textContent = '$' + tax.toFixed(2);
+            document.getElementById('invoiceTotal').textContent = '$' + total.toFixed(2);
+        }
     </script>
 </body>
 
