@@ -15,12 +15,17 @@ It allows doctors, nurses, and administrators to efficiently manage patient reco
 
 ---
 
+## 🔑 Default Login Credentials  
+To access the **admin panel**, use the following credentials:  
+
+- **ID (Username):** `admin`  
+- **Password:** `password`  
+
+> ⚠️ For production, please change the default credentials in the code or database for security reasons.  
+
+---
+
 ## 🛠️ Tech Stack  
-- **Frontend** – HTML, CSS, JavaScript
-
-## ⚙️ Installation & Setup  
-
-1. **Clone the repository**  
-   ```bash
-   git clone https://github.com/isinghranjeet/patient-management-system.git
-   cd patient-management-system
+- **Frontend:** HTML, CSS, JavaScript  
+- **Backend:** Node.js / Express (optional, if implemented)  
+- **Database:** MongoDB / MySQL (depending on setup)  
